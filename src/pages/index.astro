@@ -1,0 +1,162 @@
+---
+import MainLayout from "../layouts/main.astro";
+import Discord from "../icons/discord.astro";
+import YouTube from "../icons/youtube.astro";
+import X from "../icons/x.astro";
+import GitHub from "../icons/github.astro";
+import Twitch from "../icons/twitch.astro";
+import { getCollection } from "astro:content";
+import Bluesky from "src/icons/bluesky.astro";
+
+function getAge(birthDate: Date) {
+  var today = new Date();
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+  if (
+    today.getMonth() === birthDate.getMonth() &&
+    today.getDate() == birthDate.getDate()
+  )
+    age++;
+  return age;
+}
+
+const posts = await getCollection("blog");
+const last3Posts = posts
+  .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+  .slice(0, 3);
+---
+
+<MainLayout>
+  <section class="flex flex-col gap-2">
+    <h1 class="text-4xl font-extrabold text-balance">
+      Hey there, I'm <span class="text-orange-500">ToastedToast</span>!
+    </h1>
+    <p>
+      I'm a <b>{getAge(new Date("December 6, 2009"))} year old</b> self-taught developer
+      who makes silly little videos on the internet about random numbers and likes
+      making things on the web and Discord on the side.
+    </p>
+  </section>
+  <section class="pt-4">
+    <h2 class="text-2xl font-bold">I'm everywhere, everything all at once</h2>
+    <ul class="flex items-center gap-2 pt-2">
+      <li>
+        <a
+          href="https://youtube.com/@ToasteddotDev"
+          target="_blank"
+          title="YouTube"
+          aria-label="YouTube"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY w-fit rounded-lg bg-red-600 px-1 py-1 transition-all hover:shadow-none"
+          >
+            <YouTube class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://x.com/@ToastedDev"
+          target="_blank"
+          title="X/Twitter"
+          aria-label="X/Twitter"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY w-fit rounded-lg bg-white px-1 py-1 text-black transition-all hover:shadow-none"
+          >
+            <X class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://bsky.app/profile/toasted.dev"
+          target="_blank"
+          title="Bluesky"
+          aria-label="Bluesky"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY w-fit rounded-lg bg-blue-500 px-1 py-1 transition-all hover:shadow-none"
+          >
+            <Bluesky class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/ToastedDev"
+          target="_blank"
+          title="GitHub"
+          aria-label="GitHub"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY w-fit rounded-lg bg-neutral-700 px-1 py-1 transition-all hover:shadow-none"
+          >
+            <GitHub class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://twitch.tv/ToastedTheDev"
+          target="_blank"
+          title="Twitch"
+          aria-label="Twitch"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY w-fit rounded-lg bg-purple-600 px-1 py-1 transition-all hover:shadow-none"
+          >
+            <Twitch class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+      <li>
+        <a
+          href="https://discord.com/users/955408387905048637"
+          target="_blank"
+          title="Discord"
+          aria-label="Discord"
+        >
+          <div
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover: w-fit rounded-lg bg-[#5865F2] px-1 py-1 transition-all hover:shadow-none"
+          >
+            <Discord class="h-8 w-8" />
+          </div>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="pt-6">
+    <h2 class="text-2xl font-bold">I also write sometimes</h2>
+    <ul class="flex flex-col gap-0.5 pt-1">
+      {
+        last3Posts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}`}
+              class="group flex w-fit items-center gap-2 text-lg"
+            >
+              <time
+                datetime={post.data.createdAt.toLocaleDateString()}
+                class="font-semibold text-orange-500"
+              >
+                {post.data.createdAt.toLocaleString(undefined, {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </time>
+              <p
+                class="underline-offset-4 group-hover:underline"
+                transition:name={post.data.title}
+              >
+                {post.data.title}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</MainLayout>

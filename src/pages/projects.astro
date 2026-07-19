@@ -1,0 +1,173 @@
+---
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/main.astro";
+
+interface Project {
+  title: string;
+  subtitle?: string;
+  description: string;
+  href: string;
+  image?: string;
+  years: {
+    from: number;
+    to?: number;
+  };
+}
+
+const projects: Project[] = [
+  {
+    title: "MinMax (previously Graphify)",
+    description: "Visualizing the world with numbers and graphs.",
+    href: "https://youtube.com/@MinMaxStats",
+    image: "https://www.banner.yt/UCkaQHnnaXDmdu-OhaCeJUGA/avatar",
+    years: {
+      from: 2021,
+    },
+  },
+  {
+    title: "SCTools",
+    subtitle: "Co-founder and developer",
+    description:
+      "A collection of tools built by stats creators, for stats creators.",
+    href: "https://sctools.org",
+    image: "https://sctools.org/logo.png",
+    years: {
+      from: 2024,
+    },
+  },
+  {
+    title: "Tracky",
+    description:
+      "Track your favorite channels, in a server or in your DMs, and get notified when they gain/lose subscribers.",
+    href: "https://tracky.sctools.org",
+    image: "https://tracky.sctools.org/tracky.png",
+    years: {
+      from: 2025,
+    },
+  },
+  {
+    title: "toasted.dev",
+    description:
+      "My personal website. If you're reading this, I assume you're on it right now.",
+    href: "https://toasted.dev",
+    image: "/logo.png",
+    years: {
+      from: 2023,
+    },
+  },
+  {
+    title: "Toasted Clicker",
+    description:
+      "Click a button and it adds one to a global counter. Somehow it got 318 million clicks in the first 24 hours.",
+    href: "https://clicker.toasted.dev",
+    years: {
+      from: 2024,
+      to: 2025,
+    },
+  },
+  {
+    title: "countstream",
+    description: "The live count website made by streamers for streamers.",
+    href: "https://countstream.toasted.dev",
+    image: "https://tracky.sctools.org/tools/countstream.png",
+    years: {
+      from: 2024,
+    },
+  },
+  {
+    title: "GitRover",
+    description: "The better GitHub CLI we all needed.",
+    href: "https://gr.js.org",
+    image: "https://gr.js.org/logo.png",
+    years: {
+      from: 2024,
+    },
+  },
+  {
+    title: "Statistics Assembly",
+    subtitle: "Former admin, merger and co-founder",
+    description: "A safe, fun and friendly server for the stats community.",
+    href: "https://discord.com/invite/6CKkHe2dTV",
+    image: "https://www.banner.yt/UCedyi_cnpfVjBlsIEYXPXHQ/avatar",
+    years: {
+      from: 2023,
+      to: 2025,
+    },
+  },
+  {
+    title: "Countify",
+    description:
+      "Keep your counting channel clean and organized with Countify.",
+    href: "https://countify.fun",
+    image:
+      "https://raw.githubusercontent.com/countifyfun/countify/refs/heads/main/web/public/logo.png",
+    years: {
+      from: 2023,
+      to: 2024,
+    },
+  },
+  {
+    title: "Statistical",
+    description:
+      "Get immediate updates when your favorite channel gets a new subscriber update.",
+    href: "https://statistical.vercel.app",
+    image: "https://statistical.vercel.app/statistical.png",
+    years: {
+      from: 2023,
+      to: 2024,
+    },
+  },
+  {
+    title: "YAB ?! Counts",
+    subtitle: "Frontend developer",
+    description: "Reimagining the concept of live counters.",
+    href: "https://yabcounts.com",
+    image: "https://www.banner.yt/UCZF32WvdScIJ4sqvw9qkCQA/avatar",
+    years: {
+      from: 2023,
+      to: 2024,
+    },
+  },
+];
+---
+
+<MainLayout title="Projects" description="Some of the projects I've worked on.">
+  <h1 class="text-4xl font-bold">Projects</h1>
+  <p class="mt-2">
+    Over the years I've worked on a lot of projects. Here are some that I am
+    most proud of.
+  </p>
+  <div class="mt-2 grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-2">
+    {
+      projects.map((project) => (
+        <a
+          href={project.href}
+          target="_blank"
+          class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY bg-main flex h-full flex-col gap-2 rounded-lg p-3 text-black transition-all hover:shadow-none"
+        >
+          <div class="flex items-start justify-between">
+            <div class="flex flex-col gap-0.5">
+              <h1 class="text-2xl font-bold">{project.title}</h1>
+              <p class="text-xs text-neutral-800">
+                {project.years.from}-{project.years.to ?? "Now"}
+              </p>
+              {project.subtitle && (
+                <p class="text-xs text-neutral-800">{project.subtitle}</p>
+              )}
+            </div>
+            {project.image && (
+              <Image
+                src={project.image}
+                width={50}
+                height={50}
+                alt={`${project.title} Logo`}
+                class="rounded-lg"
+              />
+            )}
+          </div>
+          <p>{project.description}</p>
+        </a>
+      ))
+    }
+  </div>
+</MainLayout>

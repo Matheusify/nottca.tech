@@ -1,0 +1,77 @@
+---
+import "@fontsource-variable/nunito-sans";
+import "../styles/custom.css";
+
+import Toast from "../icons/toast.astro";
+import Navbar from "../components/navbar/index.astro";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  title?: string;
+  image?: string;
+  description?: string;
+}
+
+const {
+  title,
+  image,
+  description = "A 14 year old developer who likes to build things for the web and Discord.",
+} = Astro.props;
+---
+
+<html
+  lang="en"
+  style="color-scheme: dark;"
+>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="ToastedToast's blog"
+      href={`${Astro.site}rss.xml`}
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title ? `${title} — ToastedToast` : "ToastedToast"}</title>
+    <meta name="description" content={description} />
+    <meta
+      property="og:title"
+      content={title ? `${title} — ToastedToast` : "ToastedToast"}
+    />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content="https://toasted.is-a.dev/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:creator" content="@ToastedDev" />
+    <meta name="twitter:creator:id" content="1145171094556426240" />
+    <meta
+      name="twitter:title"
+      content={title ? `${title} — ToastedToast` : "ToastedToast"}
+    />
+    <meta name="twitter:description" content={description} />
+    <meta
+      property="og:image"
+      content={image ?? "https://toasted.is-a.dev/logo.png"}
+    />
+    <meta
+      name="twitter:image"
+      content={image ?? "https://toasted.is-a.dev/logo.png"}
+    />
+    <meta
+      name="twitter:card"
+      content={image ? "summary_large_image" : "summary"}
+    />
+    <meta name="theme-color" content="#f97316" />
+    <ClientRouter />
+  </head>
+  <body>
+    <div class="mx-auto max-w-3xl p-4">
+      <Navbar />
+      <main>
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

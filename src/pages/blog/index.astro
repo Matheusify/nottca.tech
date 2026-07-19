@@ -1,0 +1,51 @@
+---
+import toastedLogo from "@/assets/toasted.jpg";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import MainLayout from "../../layouts/main.astro";
+
+const allPosts = await getCollection("blog");
+---
+
+<MainLayout title="Blog" description="The place where I dump my thoughts.">
+  <div class="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-2">
+    {
+      allPosts
+        .sort((a, b) => b.data.createdAt.getTime() - a.data.createdAt.getTime())
+        .map((post) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY bg-main flex h-full flex-col gap-2 rounded-lg p-3 text-black transition-all hover:shadow-none"
+          >
+            <Image
+              src={post.data.image ?? toastedLogo}
+              alt={`${post.data.title} Hero Image`}
+              class="h-[150px] w-full rounded-lg object-cover"
+              transition:name={`${post.data.title} Hero Image`}
+            />
+            <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-0.5">
+                <h1
+                  class="text-2xl font-bold"
+                  transition:name={post.data.title}
+                >
+                  {post.data.title}
+                </h1>
+                <time
+                  class="text-xs text-neutral-800"
+                  datetime={post.data.createdAt.toLocaleDateString()}
+                >
+                  {post.data.createdAt.toLocaleString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </time>
+              </div>
+              <p>{post.data.description}</p>
+            </div>
+          </a>
+        ))
+    }
+  </div>
+</MainLayout>

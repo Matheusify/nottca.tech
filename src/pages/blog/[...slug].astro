@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "../../layouts/main.astro";
+import { Image, getImage } from "astro:assets";
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const ogImage = post.data.image
+  ? await getImage({ src: post.data.image })
+  : null;
+const series = post.data.series ? await getEntry(post.data.series) : null;
+const seriesPosts = post.data.series
+  ? (await getCollection("blog"))
+      .filter((p) => p.data.series?.id === post.data.series!.id)
+      .sort((a, b) => a.data.createdAt.getTime() - b.data.createdAt.getTime())
+  : [];
+const { Content, remarkPluginFrontmatter } = await render(post);
+---
+
+<MainLayout
+  title={post.data.title}
+  description={post.data.description ?? "A blog post."}
+  image={ogImage ? "https://toasted.dev" + ogImage.src : undefined}
+>
+  <div class="flex flex-col gap-4 pb-2">
+    <div class="flex flex-col gap-2">
+      <h1 class="text-4xl font-bold" transition:name={post.data.title}>
+        {post.data.title}
+      </h1>
+      <div class="flex items-center gap-1.5 text-sm text-gray-300">
+        <time datetime={post.data.createdAt.toLocaleDateString()}>
+          {
+            post.data.createdAt.toLocaleString(undefined, {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })
+          }
+        </time>
+        <p>·</p>
+        <p>{remarkPluginFrontmatter.minutesRead}</p>
+      </div>
+    </div>
+    {
+      post.data.image && (
+        <Image
+          src={post.data.image}
+          alt={post.data.title}
+          class="shadow-shadow w-full rounded-lg object-cover"
+          transition:name={`${post.data.title} Hero Image`}
+          loading="eager"
+        />
+      )
+    }
+    {
+      series && (
+        <>
+          <hr class="border-orange-500" />
+          <div class="flex flex-col gap-1">
+            <p class="text-2xl font-bold">
+              This post is part of the{" "}
+              <a
+                href={`/blog/series/${series.id}`}
+                class="text-orange-500 hover:underline hover:underline-offset-4"
+              >
+                {series.data.title}
+              </a>{" "}
+              series.
+            </p>
+            <p>
+              You are currently reading post{" "}
+              {seriesPosts.findIndex((p) => p.id === post.id) + 1} of{" "}
+              {seriesPosts.length}.
+            </p>
+          </div>
+          <hr class="border-orange-500" />
+        </>
+      )
+    }
+  </div>
+  <article
+    class="prose prose-neutral prose-invert prose-headings:mb-3 prose-headings:mt-6 prose-a:text-orange-500 prose-a:no-underline max-w-none"
+  >
+    <Content />
+  </article>
+</MainLayout>

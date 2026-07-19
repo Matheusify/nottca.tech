@@ -1,0 +1,31 @@
+---
+import { links } from "./links";
+import { NavDropdown } from "./dropdown";
+import Toast from "src/icons/toast.astro";
+
+const { slug } = Astro.locals;
+---
+
+<nav
+  class="border-border shadow-shadow rounded-base bg-main font-base w450:gap-4 mx-auto mb-4 flex w-max gap-5 border-2 p-2.5 px-5 text-sm text-black sm:text-base"
+>
+  {
+    links.map((link) => (
+      <a
+        href={link.href}
+        aria-current={
+          (
+            link.slug
+              ? slug.startsWith(link.slug)
+              : slug === link.href || slug === link.href + "/"
+          )
+            ? "page"
+            : undefined
+        }
+        class="hover:border-border rounded-base aria-[current=page]:border-border border-2 border-transparent px-2 py-1 transition-colors"
+      >
+        {link.name}
+      </a>
+    ))
+  }
+</nav>
