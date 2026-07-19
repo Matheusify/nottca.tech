@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import MainLayout from "../../layouts/main.astro";
 import { Image, getImage } from "astro:assets";
-import { getEntry } from "astro:content";
 import { render } from "astro:content";
 
 export async function getStaticPaths() {
@@ -17,12 +16,6 @@ const { post } = Astro.props;
 const ogImage = post.data.image
   ? await getImage({ src: post.data.image })
   : null;
-const series = post.data.series ? await getEntry(post.data.series) : null;
-const seriesPosts = post.data.series
-  ? (await getCollection("blog"))
-      .filter((p) => p.data.series?.id === post.data.series!.id)
-      .sort((a, b) => a.data.createdAt.getTime() - b.data.createdAt.getTime())
-  : [];
 const { Content, remarkPluginFrontmatter } = await render(post);
 ---
 
@@ -59,31 +52,6 @@ const { Content, remarkPluginFrontmatter } = await render(post);
           transition:name={`${post.data.title} Hero Image`}
           loading="eager"
         />
-      )
-    }
-    {
-      series && (
-        <>
-          <hr class="border-orange-500" />
-          <div class="flex flex-col gap-1">
-            <p class="text-2xl font-bold">
-              This post is part of the{" "}
-              <a
-                href={`/blog/series/${series.id}`}
-                class="text-orange-500 hover:underline hover:underline-offset-4"
-              >
-                {series.data.title}
-              </a>{" "}
-              series.
-            </p>
-            <p>
-              You are currently reading post{" "}
-              {seriesPosts.findIndex((p) => p.id === post.id) + 1} of{" "}
-              {seriesPosts.length}.
-            </p>
-          </div>
-          <hr class="border-orange-500" />
-        </>
       )
     }
   </div>

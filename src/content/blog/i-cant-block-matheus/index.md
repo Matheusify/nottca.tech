@@ -3,7 +3,6 @@ title: I Can't Just "Block Matheus"
 description: Everyone keeps asking me to "block matheus", but really, I can't.
 createdAt: 2023-12-18
 image: "./images/og.jpg"
-series: matheus
 ---
 
 ## UPDATE (03/22/2024)
