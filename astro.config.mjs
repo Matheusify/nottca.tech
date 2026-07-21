@@ -21,7 +21,7 @@ function remarkReadingTime() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://toasted.dev",
+  site: "https://nottca.tech",
   compressHTML: true,
   integrations: [sitemap(), react()],
   vite: {
