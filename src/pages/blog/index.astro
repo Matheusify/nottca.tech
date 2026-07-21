@@ -15,7 +15,7 @@ const allPosts = await getCollection("blog");
         .map((post) => (
           <a
             href={`/blog/${post.id}`}
-            class="flex h-full flex-col gap-2 rounded-lg bg-orange-800/50 p-3 transition-all hover:opacity-75"
+            class="flex h-full flex-col gap-2 rounded-lg bg-sky-800/50 p-3 transition-all hover:opacity-75"
           >
             <Image
               src={post.data.image ?? toastedLogo}

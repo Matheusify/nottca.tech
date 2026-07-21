@@ -1,18 +1,23 @@
 ---
 import { links } from "./links";
 import { NavDropdown } from "./dropdown";
-import Toast from "src/icons/toast.astro";
+import Cat from "src/icons/cat.astro";
 
 const { slug } = Astro.locals;
 ---
 
 <header class="flex items-center justify-between pb-4">
-  <nav
-    class="text-3xl font-semibold text-orange-500 transition-all hover:opacity-75"
-  >
-    <a href="/" class="flex items-center gap-2">
-      <Toast class="text-4xl" />
-      <p>ToastedToast</p>
+  <nav class="text-3xl font-semibold transition-all hover:opacity-75">
+    <a href="/" class="group flex items-center gap-2">
+      <Cat class="text-4xl text-sky-500" />
+      <p class="font-bold">
+        not<span class="text-sky-500">tca</span>
+        <span
+          class="text-sm opacity-0 transition-opacity group-hover:opacity-75"
+        >
+          ...or am I?
+        </span>
+      </p>
     </a>
   </nav>
   <ul class="hidden md:flex md:items-center md:gap-2">
@@ -28,7 +33,7 @@ const { slug } = Astro.locals;
               ? "page"
               : undefined
           }
-          class="font-semibold text-orange-500 underline-offset-4 transition-all hover:underline hover:opacity-75 aria-[current=page]:text-orange-300 aria-[current=page]:underline"
+          class="font-semibold text-sky-500 underline-offset-4 transition-all hover:underline hover:opacity-75 aria-[current=page]:text-sky-300 aria-[current=page]:underline"
         >
           <a href={link.href}>{link.name}</a>
         </li>

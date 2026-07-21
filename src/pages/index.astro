@@ -2,11 +2,11 @@
 import MainLayout from "../layouts/main.astro";
 import Discord from "../icons/discord.astro";
 import YouTube from "../icons/youtube.astro";
-import X from "../icons/x.astro";
+import Twitter from "src/icons/twitter.astro";
 import GitHub from "../icons/github.astro";
 import Twitch from "../icons/twitch.astro";
-import { getCollection } from "astro:content";
 import Bluesky from "src/icons/bluesky.astro";
+import { getCollection } from "astro:content";
 
 function getAge(birthDate: Date) {
   var today = new Date();
@@ -30,12 +30,12 @@ const last3Posts = posts
 <MainLayout>
   <section class="flex flex-col gap-2">
     <h1 class="text-4xl font-extrabold text-balance">
-      Hey there, I'm <span class="text-orange-500">ToastedToast</span>!
+      Hey there, I'm <span class="text-sky-500">TCA</span>! :3
     </h1>
     <p>
       I'm a <b>{getAge(new Date("December 6, 2009"))} year old</b> self-taught developer
-      who makes silly little videos on the internet about random numbers and likes
-      making things on the web and Discord on the side.
+      and practicing catboy who makes silly little videos on the internet about random
+      numbers and likes making things on the web.
     </p>
   </section>
   <section class="pt-4">
@@ -57,15 +57,15 @@ const last3Posts = posts
       </li>
       <li>
         <a
-          href="https://x.com/@ToastedDev"
+          href="https://twitter.com/@ToastedDev"
           target="_blank"
-          title="X/Twitter"
-          aria-label="X/Twitter"
+          title="Twitter/X"
+          aria-label="Twitter/X"
         >
           <div
-            class="w-fit rounded-lg bg-white px-1 py-1 text-black transition-all hover:opacity-80"
+            class="w-fit rounded-lg bg-sky-500 px-1 py-1 text-white transition-all hover:opacity-80"
           >
-            <X class="h-8 w-8" />
+            <Twitter class="h-8 w-8" />
           </div>
         </a>
       </li>
@@ -139,7 +139,7 @@ const last3Posts = posts
             >
               <time
                 datetime={post.data.createdAt.toLocaleDateString()}
-                class="font-semibold text-orange-500"
+                class="font-semibold text-sky-500"
               >
                 {post.data.createdAt.toLocaleString(undefined, {
                   month: "short",
