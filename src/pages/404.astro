@@ -1,6 +1,5 @@
 ---
 import MainLayout from "../layouts/main.astro";
-import { buttonVariants } from "@/components/ui/button";
 ---
 
 <MainLayout>
@@ -10,12 +9,15 @@ import { buttonVariants } from "@/components/ui/button";
       It seems you found yourself in a dead end. Don't worry, I'll help you out.
     </p>
     <div class="flex items-center gap-2">
-      <a href="/" class={buttonVariants()}> Return home </a>
+      <a
+        href="/"
+        class="rounded-full bg-orange-800/50 px-4 py-1 text-lg font-bold transition-all hover:opacity-80"
+      >
+        Return home
+      </a>
       <button
         onclick="history.back()"
-        class={buttonVariants({
-          className: "cursor-pointer",
-        })}
+        class="rounded-full bg-orange-800/50 px-4 py-1 text-lg font-bold transition-all hover:opacity-80"
       >
         Go back
       </button>

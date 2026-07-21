@@ -1,5 +1,5 @@
 ---
-import toastedLogo from "@/assets/toasted.jpg";
+import toastedLogo from "@assets/toasted.jpg";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import MainLayout from "../../layouts/main.astro";
@@ -15,7 +15,7 @@ const allPosts = await getCollection("blog");
         .map((post) => (
           <a
             href={`/blog/${post.id}`}
-            class="shadow-shadow hover:translate-x-boxShadowX hover:translate-y-boxShadowY bg-main flex h-full flex-col gap-2 rounded-lg p-3 text-black transition-all hover:shadow-none"
+            class="flex h-full flex-col gap-2 rounded-lg bg-orange-800/50 p-3 transition-all hover:opacity-75"
           >
             <Image
               src={post.data.image ?? toastedLogo}
@@ -32,7 +32,7 @@ const allPosts = await getCollection("blog");
                   {post.data.title}
                 </h1>
                 <time
-                  class="text-xs text-neutral-800"
+                  class="text-xs text-neutral-300"
                   datetime={post.data.createdAt.toLocaleDateString()}
                 >
                   {post.data.createdAt.toLocaleString(undefined, {

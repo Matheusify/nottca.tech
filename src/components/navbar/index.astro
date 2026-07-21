@@ -6,26 +6,34 @@ import Toast from "src/icons/toast.astro";
 const { slug } = Astro.locals;
 ---
 
-<nav
-  class="border-border shadow-shadow rounded-base bg-main font-base w450:gap-4 mx-auto mb-4 flex w-max gap-5 border-2 p-2.5 px-5 text-sm text-black sm:text-base"
->
-  {
-    links.map((link) => (
-      <a
-        href={link.href}
-        aria-current={
-          (
-            link.slug
-              ? slug.startsWith(link.slug)
-              : slug === link.href || slug === link.href + "/"
-          )
-            ? "page"
-            : undefined
-        }
-        class="hover:border-border rounded-base aria-[current=page]:border-border border-2 border-transparent px-2 py-1 transition-colors"
-      >
-        {link.name}
-      </a>
-    ))
-  }
-</nav>
+<header class="flex items-center justify-between pb-4">
+  <nav
+    class="text-3xl font-semibold text-orange-500 transition-all hover:opacity-75"
+  >
+    <a href="/" class="flex items-center gap-2">
+      <Toast class="text-4xl" />
+      <p>ToastedToast</p>
+    </a>
+  </nav>
+  <ul class="hidden md:flex md:items-center md:gap-2">
+    {
+      links.map((link) => (
+        <li
+          aria-current={
+            (
+              link.slug
+                ? slug.startsWith(link.slug)
+                : slug === link.href || slug === link.href + "/"
+            )
+              ? "page"
+              : undefined
+          }
+          class="font-semibold text-orange-500 underline-offset-4 transition-all hover:underline hover:opacity-75 aria-[current=page]:text-orange-300 aria-[current=page]:underline"
+        >
+          <a href={link.href}>{link.name}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <NavDropdown {slug} client:load />
+</header>

@@ -48,7 +48,7 @@ const { Content, remarkPluginFrontmatter } = await render(post);
         <Image
           src={post.data.image}
           alt={post.data.title}
-          class="shadow-shadow w-full rounded-lg object-cover"
+          class="w-full rounded-lg object-cover"
           transition:name={`${post.data.title} Hero Image`}
           loading="eager"
         />
