@@ -22,7 +22,7 @@ export function Menu(props: SVGProps<SVGSVGElement>) {
 export function NavDropdown({ slug }: { slug: string }) {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger className="flex items-center gap-2 text-orange-500 outline-hidden hover:underline md:hidden">
+      <DropdownMenu.Trigger className="flex items-center gap-2 text-sky-500 outline-hidden hover:underline md:hidden">
         <Menu
           className="h-8 w-8 transition-opacity hover:opacity-75"
           aria-label="Menu"
@@ -31,7 +31,7 @@ export function NavDropdown({ slug }: { slug: string }) {
       <DropdownMenu.Portal>
         <DropdownMenu.Content
           align="end"
-          className="flex flex-col overflow-hidden rounded-md bg-orange-950 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+          className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 flex flex-col overflow-hidden rounded-md bg-sky-950"
         >
           {links.map((link) => (
             <DropdownMenu.Item
@@ -46,7 +46,7 @@ export function NavDropdown({ slug }: { slug: string }) {
                   ? "page"
                   : undefined
               }
-              className="bg-orange-900 py-1 pl-4 pr-2 text-right outline-hidden transition-opacity hover:opacity-75 aria-[current=page]:bg-orange-700"
+              className="bg-sky-900 py-1 pr-2 pl-4 text-right outline-hidden transition-opacity hover:opacity-75 aria-[current=page]:bg-sky-700"
             >
               <a href={link.href}>{link.name}</a>
             </DropdownMenu.Item>
